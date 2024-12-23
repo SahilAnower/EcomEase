@@ -9,6 +9,7 @@ import com.sahil.products.service.IProductsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -32,5 +33,10 @@ public class ProductsServiceImpl implements IProductsService {
             throw new ProductUnavailableException("Product not available as quantity is less than " + productDto.getAvailableQuantity());
         }
         return productDto;
+    }
+
+    @Override
+    public List<ProductDto> getAllProducts() {
+        return productsRepository.findAll().stream().map(genericMapper::productToProductDto).toList();
     }
 }
