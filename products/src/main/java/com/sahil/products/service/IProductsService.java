@@ -8,4 +8,5 @@ public interface IProductsService {
     void createProduct (ProductDto productDto);
     ProductDto getProduct (Long id, Integer quantity);
     List<ProductDto> getAllProducts ();
+    List<ProductDto> getProductsByCategory(Long categoryId);
 }

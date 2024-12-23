@@ -3,9 +3,13 @@ package com.sahil.products.dto;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProductDto {
     private Long id;
     @NotEmpty(message = "Name of product is required")
@@ -18,5 +22,4 @@ public class ProductDto {
     @NotNull
     private Integer availableQuantity;
     private Long categoryId;
-    private CategoryDto categoryDto;
 }

@@ -39,4 +39,9 @@ public class ProductsServiceImpl implements IProductsService {
     public List<ProductDto> getAllProducts() {
         return productsRepository.findAll().stream().map(genericMapper::productToProductDto).toList();
     }
+
+    @Override
+    public List<ProductDto> getProductsByCategory(Long categoryId) {
+        return productsRepository.findByCategoryId(categoryId).stream().map(genericMapper::productToProductDto).toList();
+    }
 }

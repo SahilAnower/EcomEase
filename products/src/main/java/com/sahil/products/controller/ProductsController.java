@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/api", produces = {MediaType.APPLICATION_JSON_VALUE})
+@RequestMapping(path = "/api/products", produces = {MediaType.APPLICATION_JSON_VALUE})
 @Validated
 @RequiredArgsConstructor
 public class ProductsController {
@@ -31,17 +31,24 @@ public class ProductsController {
     }
 
     @GetMapping("/fetch")
-    public ResponseEntity<ProductDto> getProductByIdAndQty(@RequestParam Integer id, @RequestParam Integer quantity) {
-        ProductDto productDto = iProductsService.getProduct(Long.valueOf(id), quantity);
+    public ResponseEntity<ProductDto> getProductByIdAndQty(@RequestParam Long id, @RequestParam Integer quantity) {
+        ProductDto productDto = iProductsService.getProduct(id, quantity);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(productDto);
     }
 
-    @GetMapping("/fetch/all")
+    @GetMapping("/fetch-all")
     public ResponseEntity<List<ProductDto>> getAllProducts () {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(iProductsService.getAllProducts());
+    }
+
+    @GetMapping("/fetch-by-category")
+    public ResponseEntity<List<ProductDto>> getProductsByCategory (@RequestParam Long categoryId) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(iProductsService.getProductsByCategory(categoryId));
     }
 }
