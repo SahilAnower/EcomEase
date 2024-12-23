@@ -2,10 +2,14 @@ package com.sahil.products.controller;
 
 import com.sahil.products.constants.ProductsConstants;
 import com.sahil.products.dto.ProductDto;
+import com.sahil.products.dto.ProductsContactInfoDto;
 import com.sahil.products.dto.ResponseDto;
 import com.sahil.products.service.IProductsService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,10 +21,22 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/api/products", produces = {MediaType.APPLICATION_JSON_VALUE})
 @Validated
-@RequiredArgsConstructor
 public class ProductsController {
 
     private final IProductsService iProductsService;
+
+    public ProductsController(IProductsService iProductsService) {
+        this.iProductsService = iProductsService;
+    }
+
+    @Value("${build.version}")
+    private String buildVersion;
+
+    @Autowired
+    private ProductsContactInfoDto productsContactInfoDto;
+
+    @Autowired
+    private Environment environment;
 
     @PostMapping("/create")
     public ResponseEntity<ResponseDto> createProduct(@Valid @RequestBody ProductDto productDto) {
@@ -50,5 +66,26 @@ public class ProductsController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(iProductsService.getProductsByCategory(categoryId));
+    }
+
+    @GetMapping("/build-info")
+    public ResponseEntity<String> getBuildInfo() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(buildVersion);
+    }
+
+    @GetMapping("/java-version")
+    public ResponseEntity<String> getJavaVersion() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(environment.getProperty("JAVA_HOME"));
+    }
+
+    @GetMapping("/contact-info")
+    public ResponseEntity<ProductsContactInfoDto> getContactInfo() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(productsContactInfoDto);
     }
 }
