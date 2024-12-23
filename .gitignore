@@ -1,3 +1,11 @@
 .idea
+
 products/src/main/resources/application.yml
+products/src/main/resources/schema.sql
 products/target
+products/.gitignore
+
+configserver/src/main/resources/application.yml
+configserver/src/main/resources/config
+configserver/target
+configserver/.gitignore
