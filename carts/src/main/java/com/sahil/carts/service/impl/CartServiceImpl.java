@@ -10,11 +10,16 @@ import com.sahil.carts.mapper.GenericMapper;
 import com.sahil.carts.repository.CartItemRepository;
 import com.sahil.carts.repository.CartRepository;
 import com.sahil.carts.service.ICartService;
+import com.sahil.carts.service.client.ProductsFeignClient;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -24,6 +29,7 @@ public class CartServiceImpl implements ICartService {
     private final GenericMapper genericMapper;
     private final CartRepository cartRepository;
     private final CartItemRepository cartItemRepository;
+    private final ProductsFeignClient productsFeignClient;
 
     @Override
     @Transactional
@@ -97,10 +103,21 @@ public class CartServiceImpl implements ICartService {
         Cart cart = cartRepository.findById(cartId)
                 .orElseThrow(() -> new CartNotFoundException("Cart not found with id: " + cartId));
         double totalPrice = 0.0;
-        for (CartItem cartItem : cart.getCartItems()) {
-            // get product price for this cartItem product and multiply it with quantity
+        Map<Long, Integer> productQuantityMap =
+                cart.getCartItems().stream().collect(Collectors.toMap(CartItem::getProductId, CartItem::getQuantity));
+        ResponseEntity<Map<Long, Double>> productAvailabilityResponseEntity = productsFeignClient.getProductAvailability(productQuantityMap);
+        if (productAvailabilityResponseEntity != null && productAvailabilityResponseEntity.getBody() != null) {
+            Map<Long, Double> productAvailabilityMap = productAvailabilityResponseEntity.getBody();
+            for (CartItem cartItem : cart.getCartItems()) {
+                if (productAvailabilityMap.containsKey(cartItem.getProductId())) {
+                    totalPrice += cartItem.getQuantity() * productAvailabilityMap.get(cartItem.getProductId());
+                    cartItem.setIsAvailable(true);
+                }else {
+                    cartItem.setIsAvailable(false);
+                }
+            }
+            cart.setTotalPrice(totalPrice);
         }
-        cart.setTotalPrice(totalPrice);
         return genericMapper.cartToCartDto(cart);
     }
 }
