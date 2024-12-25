@@ -1,6 +1,7 @@
 package com.sahil.products.service.impl;
 
 import com.sahil.products.dto.ProductDto;
+import com.sahil.products.dto.ProductQuantityPriceDto;
 import com.sahil.products.entity.Product;
 import com.sahil.products.exception.ProductUnavailableException;
 import com.sahil.products.mapper.GenericMapper;
@@ -9,7 +10,9 @@ import com.sahil.products.service.IProductsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -43,5 +46,19 @@ public class ProductsServiceImpl implements IProductsService {
     @Override
     public List<ProductDto> getProductsByCategory(Long categoryId) {
         return productsRepository.findByCategoryId(categoryId).stream().map(genericMapper::productToProductDto).toList();
+    }
+
+    @Override
+    public Map<Long, Double> getProductPriceMap(Map<Long, Integer> productQuantityMap) {
+        List<Long> productIds = productQuantityMap.keySet().stream().toList();
+        List<ProductQuantityPriceDto> productQuantityPriceDtos = productsRepository.findProductDetailsByIdsNative(productIds);
+        Map<Long, Double> productPriceMap = new HashMap<>();
+        for (ProductQuantityPriceDto productQuantityPriceDto : productQuantityPriceDtos) {
+            Integer requestedQuantity = productQuantityMap.get(productQuantityPriceDto.getId());
+            if (productQuantityPriceDto.getAvailableQuantity() >= requestedQuantity) {
+                productPriceMap.put(productQuantityPriceDto.getId(), productQuantityPriceDto.getPrice());
+            }
+        }
+        return productPriceMap;
     }
 }

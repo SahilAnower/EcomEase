@@ -17,6 +17,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(path = "/api/products", produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -87,5 +88,12 @@ public class ProductsController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(productsContactInfoDto);
+    }
+
+    @PostMapping("/get-product-availability")
+    public ResponseEntity<Map<Long, Double>> getProductAvailability (@RequestBody Map<Long, Integer> productQuantityMap) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(iProductsService.getProductPriceMap(productQuantityMap));
     }
 }

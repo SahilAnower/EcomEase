@@ -15,4 +15,5 @@ public class CartItemDto {
     private Long productId;
     @NotNull
     private Integer quantity;
+    private Boolean isAvailable;
 }
