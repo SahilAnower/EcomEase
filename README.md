@@ -81,6 +81,9 @@ mvn spring-boot:run
 
 ### 5. Access the Application
 - **API Gateway**: http://localhost:8082
+    - **Products**: http://localhost:8082/ecomease/products
+    - **Carts**: http://localhost:8082/ecomease/carts
+    - **Orders**: http://localhost:8082/ecomease/orders
 - **Eureka Dashboard**: http://localhost:8070
 - **RabbitMQ Management Console**: http://localhost:15672
 - **Kafka Topics UI**: http://localhost:8085 (if enabled)
