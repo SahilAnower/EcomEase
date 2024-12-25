@@ -1,21 +1,17 @@
-.idea
+# Ignore IntelliJ IDEA project files
+.idea/
 
-products/src/main/resources/application.yml
-products/src/main/resources/schema.sql
-products/target
-products/.gitignore
+# Ignore target directories (build outputs) in all submodules
+**/target/
 
-carts/src/main/resources/application.yml
-carts/src/main/resources/schema.sql
-carts/target
-carts/.gitignore
+# Ignore application.yml files containing sensitive or environment-specific configurations
+**/application.yml
 
-configserver/src/main/resources/application.yml
-configserver/src/main/resources/config
-configserver/target
-configserver/.gitignore
+# Ignore schema.sql files (optional, if they are environment-specific and not versioned)
+**/schema.sql
 
-eurekaserver/src/main/resources/application.yml
-eurekaserver/src/main/resources/config
-eurekaserver/target
-eurekaserver/.gitignore
+# Ignore specific config directories (optional, if they are environment-specific)
+**/config/
+
+# Ignore .gitignore files (already versioned and don't need exclusion)
+*.gitignore
