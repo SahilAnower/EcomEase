@@ -14,3 +14,8 @@ configserver/src/main/resources/application.yml
 configserver/src/main/resources/config
 configserver/target
 configserver/.gitignore
+
+eurekaserver/src/main/resources/application.yml
+eurekaserver/src/main/resources/config
+eurekaserver/target
+eurekaserver/.gitignore
