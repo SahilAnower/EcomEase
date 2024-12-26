@@ -1,0 +1,533 @@
+{
+	"info": {
+		"_postman_id": "9f1af02e-76ae-4b83-b754-af90e3997813",
+		"name": "EcomEase",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12688434"
+	},
+	"item": [
+		{
+			"name": "ProductsService",
+			"item": [
+				{
+					"name": "Add Product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Tshirt\",\r\n    \"description\": \"Sample tshit to wear\",\r\n    \"price\": 63.33,\r\n    \"availableQuantity\": 10\r\n    // \"categoryId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{products-service}}/api/products/create",
+							"host": [
+								"{{products-service}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch by product id and qty",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{products-service}}/api/products/fetch?id=1&quantity=2",
+							"host": [
+								"{{products-service}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"fetch"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								},
+								{
+									"key": "quantity",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{products-service}}/api/products/fetch-all",
+							"host": [
+								"{{products-service}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"fetch-all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add category",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Clothes\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{products-service}}/api/categories/create",
+							"host": [
+								"{{products-service}}"
+							],
+							"path": [
+								"api",
+								"categories",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{products-service}}/api/categories/fetch-all",
+							"host": [
+								"{{products-service}}"
+							],
+							"path": [
+								"api",
+								"categories",
+								"fetch-all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get product by category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{products-service}}/api/products/fetch-by-category?categoryId=1",
+							"host": [
+								"{{products-service}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"fetch-by-category"
+							],
+							"query": [
+								{
+									"key": "categoryId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get category by name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{products-service}}/api/categories/fetch-by-name?name=th",
+							"host": [
+								"{{products-service}}"
+							],
+							"path": [
+								"api",
+								"categories",
+								"fetch-by-name"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "th"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get build info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{products-service}}/api/products/build-info",
+							"host": [
+								"{{products-service}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"build-info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get java version",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{products-service}}/api/products/java-version",
+							"host": [
+								"{{products-service}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"java-version"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get contact information",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{products-service}}/api/products/contact-info",
+							"host": [
+								"{{products-service}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"contact-info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product Availability",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"1\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{products-service}}/api/products/get-product-availability",
+							"host": [
+								"{{products-service}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"get-product-availability"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CartService",
+			"item": [
+				{
+					"name": "Create cart",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cartItemDtos\": [\r\n        {\r\n            \"productId\": 1,\r\n            \"quantity\": 2\r\n        },\r\n        {\r\n            \"productId\": 2,\r\n            \"quantity\": 3\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{carts-service}}/api/create",
+							"host": [
+								"{{carts-service}}"
+							],
+							"path": [
+								"api",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get cart by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{carts-service}}/api/get-cart/:cartId",
+							"host": [
+								"{{carts-service}}"
+							],
+							"path": [
+								"api",
+								"get-cart",
+								":cartId"
+							],
+							"variable": [
+								{
+									"key": "cartId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add item to cart",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\": 2,\r\n    \"quantity\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{carts-service}}/api/add-item/:cartId",
+							"host": [
+								"{{carts-service}}"
+							],
+							"path": [
+								"api",
+								"add-item",
+								":cartId"
+							],
+							"variable": [
+								{
+									"key": "cartId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove item from cart",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{carts-service}}/api/remove-item/:cartId/:cartItemId",
+							"host": [
+								"{{carts-service}}"
+							],
+							"path": [
+								"api",
+								"remove-item",
+								":cartId",
+								":cartItemId"
+							],
+							"variable": [
+								{
+									"key": "cartId",
+									"value": "1"
+								},
+								{
+									"key": "cartItemId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update item in cart",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"productId\": 1,\r\n    \"quantity\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{carts-service}}/api/update-item/:cartId/:cartItemId",
+							"host": [
+								"{{carts-service}}"
+							],
+							"path": [
+								"api",
+								"update-item",
+								":cartId",
+								":cartItemId"
+							],
+							"variable": [
+								{
+									"key": "cartId",
+									"value": "1"
+								},
+								{
+									"key": "cartItemId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "OrdersService",
+			"item": [
+				{
+					"name": "Create Coupon",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"code\": \"FLAT20\",\r\n    \"type\": \"FIXED\",\r\n    \"value\": 20.0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{orders-service}}/api/coupons/create",
+							"host": [
+								"{{orders-service}}"
+							],
+							"path": [
+								"api",
+								"coupons",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Place Order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cartId\": 2,\r\n    \"couponCodes\": [\"FLAT20\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{orders-service}}/api/orders/place",
+							"host": [
+								"{{orders-service}}"
+							],
+							"path": [
+								"api",
+								"orders",
+								"place"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "products-service",
+			"value": "http://localhost:8072/ecomease/products",
+			"type": "string"
+		},
+		{
+			"key": "carts-service",
+			"value": "http://localhost:8072/ecomease/carts",
+			"type": "string"
+		},
+		{
+			"key": "orders-service",
+			"value": "http://localhost:8072/ecomease/orders",
+			"type": "string"
+		}
+	]
+}

@@ -11,4 +11,5 @@ public interface IProductsService {
     List<ProductDto> getAllProducts ();
     List<ProductDto> getProductsByCategory(Long categoryId);
     Map<Long, Double> getProductPriceMap (Map<Long, Integer> productQuantityMap);
+    void updateInventoryStatus (Map<Long, Integer> productQuantityMap);
 }

@@ -1,9 +1,6 @@
 package com.sahil.orders.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -16,8 +13,11 @@ public class Coupon extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "coupon_code")
     private String code;
+    @Column(name = "coupon_type")
     private String type;
+    @Column(name = "coupon_value")
     private Double value;
     private Boolean isActive;
 }

@@ -14,6 +14,7 @@ import java.util.List;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "orders")
 public class Order extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

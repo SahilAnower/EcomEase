@@ -69,4 +69,16 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         );
         return new ResponseEntity<>(errorResponseDTO, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(OrderCannotBeProcessedException.class)
+    public ResponseEntity<ErrorResponseDto> handleOrderCannotBeProcessedException(OrderCannotBeProcessedException exception,
+                                                                         WebRequest webRequest) {
+        ErrorResponseDto errorResponseDTO = new ErrorResponseDto(
+                webRequest.getDescription(false),
+                HttpStatus.BAD_REQUEST,
+                exception.getMessage(),
+                LocalDateTime.now()
+        );
+        return new ResponseEntity<>(errorResponseDTO, HttpStatus.BAD_REQUEST);
+    }
 }

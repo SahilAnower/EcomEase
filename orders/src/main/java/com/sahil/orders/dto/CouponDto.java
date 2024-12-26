@@ -14,7 +14,7 @@ public class CouponDto {
     @NotEmpty
     private String code;
     @NotEmpty
-    private String type;
+    private String type; // PERCENTAGE/FIXED
     @NotNull
     private Double value;
     private Boolean isActive = true;

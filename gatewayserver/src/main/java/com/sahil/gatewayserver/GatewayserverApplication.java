@@ -28,6 +28,11 @@ public class GatewayserverApplication {
 						.filters(f -> f.rewritePath("/ecomease/carts/(?<segment>.*)", "/${segment}")
 								.addResponseHeader("X-Response-Time", new Date().toString()))
 						.uri("lb://CARTS"))
+				.route(r -> r
+						.path("/ecomease/orders/**")
+						.filters(f -> f.rewritePath("/ecomease/orders/(?<segment>.*)", "/${segment}")
+								.addResponseHeader("X-Response-Time", new Date().toString()))
+						.uri("lb://ORDERS"))
 				.build();
 	}
 
