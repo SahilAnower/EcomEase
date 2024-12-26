@@ -1,15 +1,15 @@
 # EcomEase - Backend Microservices Application
 
-EcomEase is a scalable backend microservices architecture designed for an e-commerce platform. This project demonstrates the use of modern technologies to build a distributed system using microservices. The system incorporates services for managing products, orders, carts, and more, while leveraging Spring Boot, Spring Cloud, RabbitMQ/Kafka, Feign Clients, and other cutting-edge technologies.
+EcomEase is a scalable backend microservices architecture designed for an e-commerce platform. This project demonstrates the use of modern technologies to build a distributed system using microservices. The system incorporates services for managing products, orders, carts, and more, while leveraging Spring Boot, Spring Cloud, RabbitMQ, Feign Clients, and other cutting-edge technologies.
 
 ## Features
 - **Product Service**: Manage products, categories, availability, and pricing.
 - **Cart Service**: Handle cart creation, management, and total price calculation.
-- **Order Service**: Place and manage orders with automatic inventory updates.
+- **Order Service**: Place and manage orders with automatic inventory updates (bonus: `coupons`).
 - **Config Server**: Centralized configuration management using Spring Cloud Config.
 - **Gateway Server**: API Gateway for routing and load balancing using Spring Cloud Gateway.
 - **Eureka Server**: Service discovery and registry using Netflix Eureka.
-- **Message Brokers**: Integration with RabbitMQ/Kafka for asynchronous communication.
+- **Message Brokers**: Integration with RabbitMQ for asynchronous communication for inventory updates.
 - **Feign Clients**: Inter-service communication using declarative REST clients.
 - **Database Management**: SQL scripts for schema creation and seamless database integration.
 
@@ -28,7 +28,7 @@ The system is built with a modular architecture:
 
 3. **Communication**:
     - Synchronous communication using Feign Clients.
-    - Asynchronous communication using RabbitMQ/Kafka.
+    - Asynchronous communication using RabbitMQ.
 
 4. **Database**:
     - Each microservice has its own database.
@@ -40,7 +40,7 @@ The system is built with a modular architecture:
 - **Spring Cloud Eureka**
 - **Spring Cloud Config**
 - **Feign Clients**
-- **RabbitMQ** / **Kafka**
+- **RabbitMQ**
 - **Hibernate** / **JPA**
 - **H2 in-memory DB**
 - **Docker**
@@ -49,8 +49,8 @@ The system is built with a modular architecture:
 - **Java 17**
 - **Maven**
 - **Docker**
-- **RabbitMQ** / **Kafka**
-- **MySQL/SQL**
+- **RabbitMQ**
+- **H2/SQL**
 
 ## Getting Started
 
@@ -66,11 +66,13 @@ mvn clean install
 ```
 
 ### 3. Start Services
-Ensure you have Docker installed and running, then start the required dependencies (e.g., RabbitMQ, Kafka, MySQL) using Docker Compose.
+Ensure you have Docker installed and running, then start the required dependencies (e.g., RabbitMQ) using Docker Compose.
 
 ```bash
 docker-compose up
 ```
+For running rabbitmq in local: `docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:4.0-management`. This runs the rabbitmq server
+on port 5672, and the management server on port 15672.
 
 ### 4. Run Individual Services
 Navigate to each service folder and run the following:
@@ -86,7 +88,6 @@ mvn spring-boot:run
     - **Orders**: http://localhost:8082/ecomease/orders
 - **Eureka Dashboard**: http://localhost:8070
 - **RabbitMQ Management Console**: http://localhost:15672
-- **Kafka Topics UI**: http://localhost:8085 (if enabled)
 
 ## Configuration
 Configuration is managed using Spring Cloud Config. The configuration files are stored in https://github.com/SahilAnower/EcomEase-config github project.
