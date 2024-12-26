@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.sahil</groupId>
-	<artifactId>products</artifactId>
+	<artifactId>orders</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>products</name>
-	<description>Products Microservice for EcomEase</description>
+	<name>orders</name>
+	<description>Orders Microservice for EcomEase</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -28,7 +28,7 @@
 	</scm>
 	<properties>
 		<java.version>17</java.version>
-        <spring-cloud.version>2024.0.0</spring-cloud.version>
+		<spring-cloud.version>2024.0.0</spring-cloud.version>
 		<mapstruct.version>1.6.3</mapstruct.version>
 		<lombok.mapstruct.binding>0.2.0</lombok.mapstruct.binding>
 		<lombok.version>1.18.36</lombok.version>
@@ -50,10 +50,13 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
 
 		<dependency>
@@ -91,7 +94,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+			<artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
@@ -107,7 +114,6 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
 	<dependencyManagement>
 		<dependencies>
 			<dependency>

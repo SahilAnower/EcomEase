@@ -7,7 +7,10 @@ import com.sahil.products.exception.ProductUnavailableException;
 import com.sahil.products.mapper.GenericMapper;
 import com.sahil.products.repository.ProductsRepository;
 import com.sahil.products.service.IProductsService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -18,8 +21,12 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class ProductsServiceImpl implements IProductsService {
+
     private final ProductsRepository productsRepository;
     private final GenericMapper genericMapper;
+
+    private final static Logger logger = LoggerFactory.getLogger(ProductsServiceImpl.class);
+
     @Override
     public void createProduct(ProductDto productDto) {
         Product savedProduct = productsRepository.save(genericMapper.productDtoToProduct(productDto));
@@ -60,5 +67,21 @@ public class ProductsServiceImpl implements IProductsService {
             }
         }
         return productPriceMap;
+    }
+
+    @Transactional
+    @Override
+    public void updateInventoryStatus(Map<Long, Integer> productQuantityMap) {
+        int totalRowsAffected = 0;
+        for (Long productId : productQuantityMap.keySet()) {
+            logger.debug("Currently processing inventory update for productId: {} with product order quantity: {}", productId, productQuantityMap.get(productId));
+            int rowsAffected = productsRepository.updateProductInventory(productId, productQuantityMap.get(productId));
+            if (rowsAffected == 0) {
+                throw new IllegalArgumentException(
+                        "Insufficient stock or invalid product ID for product ID: " + productId + " with order quantity provided as " + productQuantityMap.get(productId));
+            }
+            totalRowsAffected += rowsAffected;
+        }
+        logger.debug("Total rows affected: {}", totalRowsAffected);
     }
 }
