@@ -1,6 +1,8 @@
 # EcomEase - Backend Microservices Application
 
-EcomEase is a scalable backend microservices architecture designed for an e-commerce platform. This project demonstrates the use of modern technologies to build a distributed system using microservices. The system incorporates services for managing products, orders, carts, and more, while leveraging Spring Boot, Spring Cloud, RabbitMQ, Feign Clients, and other cutting-edge technologies.
+EcomEase is a scalable backend microservices architecture designed for an e-commerce platform. This project demonstrates the use of modern technologies to build a distributed system using microservices. The system incorporates services for managing products, orders, carts, and more, while leveraging Spring Boot, Spring Cloud, RabbitMQ, Feign Clients, and other cutting-edge technologies. 
+
+> Note this is still under development, any picking up of issues would be really rejoiced 🥳
 
 ## Features
 - **Product Service**: Manage products, categories, availability, and pricing.
