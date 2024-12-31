@@ -1,4 +1,4 @@
-package com.sahil.gatewayserver.securityconfig;
+package com.sahil.gatewayserver.secConfig;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.core.GrantedAuthority;
