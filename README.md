@@ -14,6 +14,7 @@ EcomEase is a scalable backend microservices architecture designed for an e-comm
 - **Message Brokers**: Integration with RabbitMQ for asynchronous communication for inventory updates.
 - **Feign Clients**: Inter-service communication using declarative REST clients.
 - **Database Management**: SQL scripts for schema creation and seamless database integration.
+- **Docker Containerization**: Using `docker-compose.yml` files for containerization of application.
 
 ## Architecture
 The system is built with a modular architecture:
@@ -46,6 +47,7 @@ The system is built with a modular architecture:
 - **Hibernate** / **JPA**
 - **H2 in-memory DB**
 - **Docker**
+- **Keycloak**
 
 ## Prerequisites
 - **Java 17**
@@ -53,6 +55,7 @@ The system is built with a modular architecture:
 - **Docker**
 - **RabbitMQ**
 - **H2/SQL**
+- **Keycloak**
 
 ## Getting Started
 
@@ -68,13 +71,16 @@ mvn clean install
 ```
 
 ### 3. Start Services
-Ensure you have Docker installed and running, then start the required dependencies (e.g., RabbitMQ) using Docker Compose.
+Ensure you have Docker installed and running, then start the required dependencies (e.g., RabbitMQ) using Docker Compose. But first, generate images of
+all microservices using `mvn compile jib:dockerBuild`. Then, move over to the docker-compose directory, and start the services in any of the environments i.e, prod/qa/default using below command.
 
 ```bash
 docker-compose up
 ```
 For running rabbitmq in local: `docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:4.0-management`. This runs the rabbitmq server
 on port 5672, and the management server on port 15672.
+
+For auth, get into the Keycloak server console, and use, Client-Credentials/AccessCode-Credentials, by creating client and registering to the required realm, assign roles such as `PRODUCTS/ORDERS/CARTS`, for accessing all POST/PUT/DELETE requests inside of the application. Remember the Keycloak server by default would start on port 7080.
 
 ### 4. Run Individual Services
 Navigate to each service folder and run the following:
