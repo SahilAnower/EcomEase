@@ -80,7 +80,7 @@
 				<version>3.4.2</version>
 				<configuration>
 					<to>
-						<image>EcomEase/${project.artifactId}:v1</image>
+						<image>ecomease/${project.artifactId}:v1</image>
 					</to>
 				</configuration>
 			</plugin>

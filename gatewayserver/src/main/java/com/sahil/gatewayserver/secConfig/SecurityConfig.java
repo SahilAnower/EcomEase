@@ -1,4 +1,4 @@
-package com.sahil.gatewayserver.config;
+package com.sahil.gatewayserver.secConfig;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
