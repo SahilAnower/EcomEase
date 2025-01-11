@@ -20,6 +20,7 @@ public class SecurityConfig {
     @Bean
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity serverHttpSecurity) {
         serverHttpSecurity.authorizeExchange(exchanges -> exchanges.pathMatchers(HttpMethod.GET).permitAll()
+                        .pathMatchers("/ecomease/**").hasRole("admin")
                         .pathMatchers("/ecomease/orders/**").hasRole("ORDERS")
                         .pathMatchers("/ecomease/products/**").hasRole("PRODUCTS")
                         .pathMatchers("/ecomease/carts/**").hasRole("CARTS"))
