@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,4 +24,8 @@ public class ProductDto {
     @NotNull
     private Integer availableQuantity;
     private Long categoryId;
+
+    private List<ReviewDto> reviewDtos;
+
+    private ReviewDescriptionDto reviewDescriptionDto;
 }

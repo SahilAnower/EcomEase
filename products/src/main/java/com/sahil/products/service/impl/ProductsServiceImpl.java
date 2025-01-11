@@ -2,6 +2,8 @@ package com.sahil.products.service.impl;
 
 import com.sahil.products.dto.ProductDto;
 import com.sahil.products.dto.ProductQuantityPriceDto;
+import com.sahil.products.dto.ReviewDescriptionDto;
+import com.sahil.products.dto.ReviewDto;
 import com.sahil.products.entity.Product;
 import com.sahil.products.exception.ProductUnavailableException;
 import com.sahil.products.mapper.GenericMapper;
@@ -42,12 +44,14 @@ public class ProductsServiceImpl implements IProductsService {
         if (productDto.getAvailableQuantity() < quantity) {
             throw new ProductUnavailableException("Product not available as quantity is less than " + productDto.getAvailableQuantity());
         }
+        productDto.setReviewDescriptionDto(getReviewDescription(productDto.getReviewDtos()));
         return productDto;
     }
 
     @Override
     public List<ProductDto> getAllProducts() {
-        return productsRepository.findAll().stream().map(genericMapper::productToProductDto).toList();
+        List<ProductDto> productDtos = productsRepository.findAll().stream().map(genericMapper::productToProductDto).toList();
+        return productDtos.stream().peek(productDto -> productDto.setReviewDescriptionDto(getReviewDescription(productDto.getReviewDtos()))).toList();
     }
 
     @Override
@@ -83,5 +87,36 @@ public class ProductsServiceImpl implements IProductsService {
             totalRowsAffected += rowsAffected;
         }
         logger.debug("Total rows affected: {}", totalRowsAffected);
+    }
+
+    private ReviewDescriptionDto getReviewDescription (List<ReviewDto> reviewDtos) {
+        if (reviewDtos.isEmpty()) {
+            return new ReviewDescriptionDto();
+        }
+        int totalReviews = reviewDtos.size();
+        HashMap<Integer, Integer> reviewCountByRating = new HashMap<>();
+        int totalRatingSum = 0;
+
+        for (ReviewDto reviewDto : reviewDtos) {
+            int rating = reviewDto.getRating();
+            totalRatingSum += rating;
+            if (reviewCountByRating.containsKey(rating)) {
+                reviewCountByRating.put(rating, reviewCountByRating.get(rating) + 1);
+            }else {
+                reviewCountByRating.put(rating, 1);
+            }
+        }
+
+        double avgRating = Math.round((double) totalRatingSum / totalReviews);
+
+        HashMap<Integer, Double> reviewPercentageByRating = new HashMap<>();
+
+        for (Integer ratingKey : reviewCountByRating.keySet()) {
+            Integer count = reviewCountByRating.get(ratingKey);
+
+            reviewPercentageByRating.put(ratingKey, (double) Math.round(((double) count / totalReviews) * 100.0));
+        }
+
+        return ReviewDescriptionDto.builder().totalReviews(totalReviews).averageRating(avgRating).reviewCountByRating(reviewCountByRating).reviewPercentageByRating(reviewPercentageByRating).build();
     }
 }
